@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button1 = findViewById(R.id.button1);
+        Button button = findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +52,15 @@ public class MainActivity extends Activity {
                 startActivityForResult(Intent.createChooser(
                         intent, "Select Picture"), PICK_IMAGE);
             }
+        });
+        final ImageView overlay = new ImageView(this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FrameLayout mainFrame = (FrameLayout) findViewById(R.id.MainFrame);
+                overlay.setImageBitmap(BitmapFactory.decodeResource(mResources, R.drawable.barbaralovesyou));
+                mainFrame.addView(overlay);
+        }
         });
 
         detectionProgressDialog = new ProgressDialog(this);
@@ -77,6 +87,8 @@ public class MainActivity extends Activity {
         }
         // </snippet_mainactivity_methods>
     }
+
+
 
 
     // <snippet_detection_methods>
