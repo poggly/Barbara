@@ -12,8 +12,12 @@ import android.graphics.*;
 import android.widget.*;
 import android.provider.*;
 import android.content.res.Resources;
+<<<<<<< HEAD
 import java.util.*;
 import java.lang.Math;
+=======
+import java.util.concurrent.TimeUnit;
+>>>>>>> 4eb2aedd5677bacec07a1a2bd2bc9d0c41291eb2
 // </snippet_imports>
 
 // <snippet_face_imports>
@@ -34,6 +38,7 @@ public class MainActivity extends Activity {
 
     private final int PICK_IMAGE = 1;
     private ProgressDialog detectionProgressDialog;
+    int isImage = 0;
 
 
     public static Resources mResources;
@@ -46,6 +51,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         Button button1 = findViewById(R.id.button1);
         Button button = findViewById(R.id.button);
+        Button button3 = findViewById(R.id.button3);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,14 +62,32 @@ public class MainActivity extends Activity {
             }
         });
         final ImageView overlay = new ImageView(this);
+        final FrameLayout mainFrame = (FrameLayout) findViewById(R.id.MainFrame);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FrameLayout mainFrame = (FrameLayout) findViewById(R.id.MainFrame);
-                overlay.setImageBitmap(BitmapFactory.decodeResource(mResources, R.drawable.barbaralovesyou));
-                mainFrame.addView(overlay);
-        }
+                if(isImage == 0) {
+                    isImage = 1;
+                    overlay.setImageBitmap(BitmapFactory.decodeResource(mResources, R.drawable.barbaralovesyou));
+                    mainFrame.addView(overlay);
+                    overlay.setAlpha(100);
+                }
+            }
         });
+
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                if(isImage == 1)
+                {
+                isImage = 0;
+                mainFrame.removeView(overlay);
+                }
+            }
+        });
+
 
         detectionProgressDialog = new ProgressDialog(this);
         mResources = getResources();
@@ -210,7 +234,7 @@ public class MainActivity extends Activity {
                 else if (number==2){
                     bmp = two;
                 }
-                else if (numbre==3){
+                else if (number==3){
                     bmp = three;
                 }
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bmp, (bmp.getWidth()/((bmp.getWidth()/faceRectangle.width))), (bmp.getHeight()/((bmp.getWidth()/faceRectangle.width))), true);
