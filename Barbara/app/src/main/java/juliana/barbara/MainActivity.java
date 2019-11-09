@@ -12,6 +12,8 @@ import android.graphics.*;
 import android.widget.*;
 import android.provider.*;
 import android.content.res.Resources;
+import java.util.*;
+import java.lang.Math;
 // </snippet_imports>
 
 // <snippet_face_imports>
@@ -177,8 +179,6 @@ public class MainActivity extends Activity {
 
     // <snippet_drawrectangles>
 
-
-
     private static Bitmap drawFaceRectanglesOnBitmap(
             Bitmap originalBitmap, Face[] faces) {
         Bitmap bitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
@@ -197,7 +197,22 @@ public class MainActivity extends Activity {
                         faceRectangle.left + faceRectangle.width,
                         faceRectangle.top + faceRectangle.height,
                         paint);*/
-                Bitmap bmp = BitmapFactory.decodeResource(mResources, R.drawable.cut1);
+                Bitmap one = BitmapFactory.decodeResource(mResources, R.drawable.cut1);
+                Bitmap two = BitmapFactory.decodeResource(mResources, R.drawable.cut2);
+                Bitmap three = BitmapFactory.decodeResource(mResources, R.drawable.cut3);
+                double someRandomDouble = Math.random()*3;
+                double num = Math.ceil(someRandomDouble);
+                int number = (int)num;
+                Bitmap bmp;
+                if (number==1){
+                    bmp = one;
+                }
+                else if (number==2){
+                    bmp = two;
+                }
+                else if (numbre==3){
+                    bmp = three;
+                }
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bmp, (bmp.getWidth()/((bmp.getWidth()/faceRectangle.width))), (bmp.getHeight()/((bmp.getWidth()/faceRectangle.width))), true);
                 canvas.drawBitmap(resizedBitmap, faceRectangle.left, faceRectangle.top-((faceRectangle.width/16)*7), null);
             }
