@@ -11,12 +11,15 @@ import android.view.*;
 import android.graphics.*;
 import android.widget.*;
 import android.provider.*;
+import android.content.res.Resources;
 // </snippet_imports>
 
 // <snippet_face_imports>
 import com.microsoft.projectoxford.face.*;
 import com.microsoft.projectoxford.face.contract.*;
 // </snippet_face_imports>
+
+
 
 public class MainActivity extends Activity {
     // <snippet_mainactivity_fields>
@@ -29,6 +32,9 @@ public class MainActivity extends Activity {
 
     private final int PICK_IMAGE = 1;
     private ProgressDialog detectionProgressDialog;
+
+
+    public static Resources mResources;
     // </snippet_mainactivity_fields>
 
     // <snippet_mainactivity_methods>
@@ -48,6 +54,7 @@ public class MainActivity extends Activity {
         });
 
         detectionProgressDialog = new ProgressDialog(this);
+        mResources = getResources();
     }
 
     @Override
@@ -70,6 +77,7 @@ public class MainActivity extends Activity {
         }
         // </snippet_mainactivity_methods>
     }
+
 
     // <snippet_detection_methods>
     // Detect faces by uploading a face image.
@@ -156,6 +164,9 @@ public class MainActivity extends Activity {
     // </snippet_detection_methods>
 
     // <snippet_drawrectangles>
+
+
+
     private static Bitmap drawFaceRectanglesOnBitmap(
             Bitmap originalBitmap, Face[] faces) {
         Bitmap bitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
@@ -174,6 +185,9 @@ public class MainActivity extends Activity {
                         faceRectangle.left + faceRectangle.width,
                         faceRectangle.top + faceRectangle.height,
                         paint);
+                Bitmap bmp = BitmapFactory.decodeResource(mResources, R.drawable.cut1);
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bmp, (faceRectangle.width/bmp.getWidth())*100, (faceRectangle.width/bmp.getHeight())*100, true);
+                canvas.drawBitmap(resizedBitmap, faceRectangle.left-100, faceRectangle.top-140, null);
             }
         }
         return bitmap;
