@@ -179,15 +179,15 @@ public class MainActivity extends Activity {
         if (faces != null) {
             for (Face face : faces) {
                 FaceRectangle faceRectangle = face.faceRectangle;
-                canvas.drawRect(
+                /*canvas.drawRect(
                         faceRectangle.left,
                         faceRectangle.top,
                         faceRectangle.left + faceRectangle.width,
                         faceRectangle.top + faceRectangle.height,
-                        paint);
+                        paint);*/
                 Bitmap bmp = BitmapFactory.decodeResource(mResources, R.drawable.cut1);
-                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bmp, (faceRectangle.width/bmp.getWidth())*100, (faceRectangle.width/bmp.getHeight())*100, true);
-                canvas.drawBitmap(resizedBitmap, faceRectangle.left-100, faceRectangle.top-140, null);
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bmp, (bmp.getWidth()/((bmp.getWidth()/faceRectangle.width))), (bmp.getHeight()/((bmp.getWidth()/faceRectangle.width))), true);
+                canvas.drawBitmap(resizedBitmap, faceRectangle.left, faceRectangle.top-((faceRectangle.width/16)*7), null);
             }
         }
         return bitmap;
